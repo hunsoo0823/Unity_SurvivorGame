@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         TryRun();
         float checkMoveXZ = Move();
         MoveCheck(checkMoveXZ);
-        CamearRotaion();
+        CameraRotaion();
         CharacterRoation();
     }
 
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
     }
     private void MoveCheck(float moveXZ)
     {
-        if(!isRun && !isCrouch && !isGround)
+        if(!isRun && !isCrouch && isGround)
         {
             //if (Vector3.Distance(lastPos, transform.position) >= 0.01f)
             if(moveXZ != 0)
@@ -99,11 +99,11 @@ public class PlayerController : MonoBehaviour
 
             theCrosshair.WalkingAnimation(isWalk);
             //lastPos = transform.position;
-        }   
+        }
     }
 
     // 상하 카메라 회전
-    private void CamearRotaion()
+    private void CameraRotaion()
     {
         float _xRotation = Input.GetAxisRaw("Mouse Y");
         float _cameraRoationX = _xRotation * lookSensitivity;
@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
     private void IsGround()
     {
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f);
-        theCrosshair.RunningAnimation(!isGround);
+        theCrosshair.JumpAnimation(!isGround);
     }
     
     // 앉기 시도
